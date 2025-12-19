@@ -22,6 +22,7 @@
 </head>
 <body>
   <h1>Book Tracker</h1>
+   <button id="logout-btn" style="float: right; padding: 0.5rem 1rem; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
   <p>Add books you’re reading and keep a simple list.</p>
 
   <form id="book-form">
@@ -41,5 +42,32 @@
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="app.js"></script>
+   <script>
+    // Check if user is logged in
+    window.addEventListener('load', () => {
+      const token = localStorage.getItem('authToken');
+      const username = localStorage.getItem('username');
+      
+      if (!token) {
+        // Redirect to login if not authenticated
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Set authorization header for all future requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+      // Setup logout button
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('username');
+          window.location.href = 'login.html';
+        });
+      }
+    });
+  </script>
 </body>
+
 </html>
