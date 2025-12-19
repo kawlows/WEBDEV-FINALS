@@ -1,4 +1,5 @@
 const API_BASE = "http://127.0.0.1:8000";
+// Note: Authentication token is set in index.html via axios.defaults.headers.common['Authorization']
 
 const booksListEl = document.getElementById("books-list");
 const formEl = document.getElementById("book-form");
@@ -67,5 +68,6 @@ formEl.addEventListener("submit", async (e) => {
     alert("Failed to add book");
   }
 });
+
 
 loadBooks();
